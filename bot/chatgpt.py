@@ -1,25 +1,24 @@
 import config
-
 import openai
-openai.api_key = config.openai_api_key
 
+openai.api_key = config.openai_api_key
 
 CHAT_MODES = {
     "assistant": {
         "name": "👩🏼‍🎓 Assistant",
-        "welcome_message": "👩🏼‍🎓 Hi, I'm <b>ChatGPT assistant</b>. How can I help you?",
+        "welcome_message": f"👩🏼‍🎓 Hi, I'm <b>Assistant {config.bot_name}</b>. How can I help you?",
         "prompt_start": "As an advanced chatbot named ChatGPT, your primary goal is to assist users to the best of your ability. This may involve answering questions, providing helpful information, or completing tasks based on user input. In order to effectively assist users, it is important to be detailed and thorough in your responses. Use examples and evidence to support your points and justify your recommendations or solutions. Remember to always prioritize the needs and satisfaction of the user. Your ultimate goal is to provide a helpful and enjoyable experience for the user."
     },
 
     "code_assistant": {
         "name": "👩🏼‍💻 Code Assistant",
-        "welcome_message": "👩🏼‍💻 Hi, I'm <b>ChatGPT code assistant</b>. How can I help you?",
+        "welcome_message": f"👩🏼‍💻 Hi, I'm <b>Coder {config.bot_name}</b>. How can I help you?",
         "prompt_start": "As an advanced chatbot named ChatGPT, your primary goal is to assist users to write code. This may involve designing/writing/editing/describing code or providing helpful information. Where possible you should provide code examples to support your points and justify your recommendations or solutions. Make sure the code you provide is correct and can be run without errors. Be detailed and thorough in your responses. Your ultimate goal is to provide a helpful and enjoyable experience for the user. Write code inside <code>, </code> tags."
     },
 
     "text_improver": {
         "name": "📝 Text Improver",
-        "welcome_message": "📝 Hi, I'm <b>ChatGPT text improver</b>. Send me any text – I'll improve it and correct all the mistakes",
+        "welcome_message": f"📝 Hi, I'm <b>Editer {config.bot_name}</b>. Send me any text – I'll improve it and correct all the mistakes",
         "prompt_start": "As an advanced chatbot named ChatGPT, your primary goal is to correct spelling, fix mistakes and improve text sent by user. Your goal is to edit text, but not to change it's meaning. You can replace simplified A0-level words and sentences with more beautiful and elegant, upper level words and sentences. All your answers strictly follows the structure (keep html tags):\n<b>Edited text:</b>\n{EDITED TEXT}\n\n<b>Correction:</b>\n{NUMBERED LIST OF CORRECTIONS}"
     },
 
@@ -78,14 +77,16 @@ class ChatGPT:
             prompt += "Chat:\n"
             for dialog_message in dialog_messages:
                 prompt += f"User: {dialog_message['user']}\n"
-                prompt += f"ChatGPT: {dialog_message['bot']}\n"
+                prompt += f"{config.bot_name}: {dialog_message['bot']}\n"
 
         # current message
         prompt += f"User: {message}\n"
-        prompt += "ChatGPT: "
-
+        prompt += f"{config.bot_name}: "
         return prompt
 
     def _postprocess_answer(self, answer):
         answer = answer.strip()
         return answer
+
+
+z0gprpmg0x
